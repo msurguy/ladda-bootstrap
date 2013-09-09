@@ -1,49 +1,143 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Ladda-bootstrap : Ladda buttons concept originally by @hakimel, example using Bootstrap 3 by @msurguy" />
+	<head>
+		<meta charset="utf-8">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+		<title>Ladda: Bootstrap compatibility test</title>
 
-    <title>Ladda-bootstrap</title>
-  </head>
+		<meta name="description" content="">
+		<meta name="author" content="Hakim El Hattab">
 
-  <body>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/msurguy/ladda-bootstrap">View on GitHub</a>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-          <h1 id="project_title">Ladda-bootstrap</h1>
-          <h2 id="project_tagline">Ladda buttons concept originally by @hakimel, example using Bootstrap 3 by @msurguy</h2>
+		<link rel="stylesheet" href="dist/ladda-themeless.min.css">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+		
+	</head>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/msurguy/ladda-bootstrap/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/msurguy/ladda-bootstrap/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<h1>Ladda Bootstrap</h1>
+					<p>
+						A UI concept by <a href="http://twitter.com/hakimel">@hakimel</a> which merges loading indicators into the action that invoked them. Primarily intended for use with forms where 
+						it gives users immediate feedback upon submit rather than leaving them wondering while the browser does its thing. This project is used by @hakimel <a href="http://slid.es">slid.es</a> and by @msurguy on <a href="http://bootsnipp.com">Bootsnipp</a>.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 text-center">
+					<p>
+						<button class="btn btn-primary ladda-button" data-color="green" data-style="expand-left"><span class="ladda-label">expand-left</span></button>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <p>Test</p>
-      </section>
-    </div>
+						<button class="btn btn-primary ladda-button" data-color="green" data-style="expand-right"><span class="ladda-label">expand-right</span></button>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Ladda-bootstrap maintained by <a href="https://github.com/msurguy">msurguy</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+						<button class="btn btn-primary ladda-button" data-color="green" data-style="expand-up"><span class="ladda-label">expand-up</span></button>
 
-    
+						<button class="btn btn-primary ladda-button" data-color="green" data-style="expand-down"><span class="ladda-label">expand-down</span></button>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 text-center">
+					<p>
+						<button class="btn btn-info ladda-button" data-color="red" data-style="zoom-in"><span class="ladda-label">zoom-in</span></button>
 
-  </body>
+						<button class="btn btn-info ladda-button" data-color="red" data-style="zoom-out"><span class="ladda-label">zoom-out</span></button>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 text-center">
+					<p>
+						<button class="btn btn-warning ladda-button" data-color="blue" data-style="slide-left"><span class="ladda-label">slide-left</span></button>
+
+						<button class="btn btn-warning ladda-button" data-color="blue" data-style="slide-right"><span class="ladda-label">slide-right</span></button>
+
+						<button class="btn btn-warning ladda-button" data-color="blue" data-style="slide-up"><span class="ladda-label">slide-up</span></button>
+
+						<button class="btn btn-warning ladda-button" data-color="blue" data-style="slide-down"><span class="ladda-label">slide-down</span></button>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 text-center progress-demo">
+					<p>Built-in progress bar</p>
+					<p>
+						<button class="btn btn-danger ladda-button" data-color="purple" data-style="expand-right"><span class="ladda-label">expand-right</span></button>
+
+						<button class="btn btn-danger ladda-button" data-color="purple" data-style="expand-left"><span class="ladda-label">expand-left</span></button>
+						
+						<button class="btn btn-danger ladda-button" data-color="purple" data-style="contract"><span class="ladda-label">contract</span></button>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 text-center">
+					<p>Sizes</p>
+					<p>
+						<button class="btn btn-primary btn-xs ladda-button" data-color="mint" data-style="expand-right" data-size="xs"><span class="ladda-label">extra small</span></button>
+
+						<button class="btn btn-primary btn-sm ladda-button" data-color="mint" data-style="expand-right" data-size="s"><span class="ladda-label">small</span></button>
+						
+						<button class="btn btn-primary btn-lg ladda-button" data-color="mint" data-style="expand-right" data-size="l"><span class="ladda-label">large</span></button>
+					</p>
+				</div>
+			</div>
+			<div class="row" style="margin-top:30px">
+				<div class="col-md-6 col-md-offset-3 text-center">
+					<p>
+						<a href="http://twitter.com/share" class="twitter-share-button" data-text="Ladda Bootstrap - Buttons with built-in loading indicators for Bootstrap" data-url="https://github.com/msurguy/ladda-bootstrap" data-count="small" data-related="bootsnipp"></a>
+						<small>Ladda UI concept by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a>, examples adapted to work with Bootstrap 3 by <a href="http://twitter.com/msurguy">@msurguy</a></small>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<script src="dist/spin.min.js"></script>
+		<script src="dist/ladda.min.js"></script>
+
+		<script>
+
+			// Bind normal buttons
+			Ladda.bind( 'div:not(.progress-demo) button', { timeout: 2000 } );
+
+			// Bind progress buttons and simulate loading progress
+			Ladda.bind( '.progress-demo button', {
+				callback: function( instance ) {
+					var progress = 0;
+					var interval = setInterval( function() {
+						progress = Math.min( progress + Math.random() * 0.1, 1 );
+						instance.setProgress( progress );
+
+						if( progress === 1 ) {
+							instance.stop();
+							clearInterval( interval );
+						}
+					}, 200 );
+				}
+			} );
+
+			// You can control loading explicitly using the JavaScript API
+			// as outlined below:
+
+			// var l = Ladda.create( document.querySelector( 'button' ) );
+			// l.start();
+			// l.stop();
+			// l.toggle();
+			// l.isLoading();
+			// l.setProgress( 0-1 );
+
+		</script>
+
+		<a class="fork" href="https://github.com/hakimel/Ladda"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/camo.github.com/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"></a>
+
+		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+	</body>
 </html>
