@@ -172,7 +172,10 @@
 
 				return button.hasAttribute( 'data-loading' );
 
-			}
+			},
+			getTarget : function() {
+                		return button;
+    			}
 
 		};
 
