@@ -29,12 +29,12 @@
     }
     function vendor(el, prop) {
         var s = el.style, pp, i;
-        if (s[prop] !== undefined) return prop;
         prop = prop.charAt(0).toUpperCase() + prop.slice(1);
         for (i = 0; i < prefixes.length; i++) {
             pp = prefixes[i] + prop;
             if (s[pp] !== undefined) return pp;
         }
+        if (s[prop] !== undefined) return prop;
     }
     function css(el, prop) {
         for (var n in prop) el.style[vendor(el, n) || n] = prop[n];
@@ -55,6 +55,9 @@
         while (el = el.offsetParent) o.x += el.offsetLeft, o.y += el.offsetTop;
         return o;
     }
+    function getColor(color, idx) {
+        return typeof color == "string" ? color : color[idx % color.length];
+    }
     var defaults = {
         lines: 12,
         length: 7,
@@ -70,12 +73,11 @@
         fps: 20,
         zIndex: 2e9,
         className: "spinner",
-        top: "auto",
-        left: "auto",
-        position: "relative"
+        top: "50%",
+        left: "50%",
+        position: "absolute"
     };
     function Spinner(o) {
-        if (typeof this == "undefined") return new Spinner(o);
         this.opts = merge(o || {}, Spinner.defaults, defaults);
     }
     Spinner.defaults = {};
@@ -88,15 +90,13 @@
                 position: o.position,
                 width: 0,
                 zIndex: o.zIndex
-            }), mid = o.radius + o.length + o.width, ep, tp;
+            }), mid = o.radius + o.length + o.width;
+            css(el, {
+                left: o.left,
+                top: o.top
+            });
             if (target) {
                 target.insertBefore(el, target.firstChild || null);
-                tp = pos(target);
-                ep = pos(el);
-                css(el, {
-                    left: (o.left == "auto" ? tp.x - ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + "px",
-                    top: (o.top == "auto" ? tp.y - ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid) + "px"
-                });
             }
             el.setAttribute("role", "progressbar");
             self.lines(el, self.opts);
@@ -147,7 +147,7 @@
                 if (o.shadow) ins(seg, css(fill("#000", "0 0 4px " + "#000"), {
                     top: 2 + "px"
                 }));
-                ins(el, ins(seg, fill(o.color, "0 0 1px rgba(0,0,0,.1)")));
+                ins(el, ins(seg, fill(getColor(o.color, i), "0 0 1px rgba(0,0,0,.1)")));
             }
             return el;
         },
@@ -189,7 +189,7 @@
                     top: -o.width >> 1,
                     filter: filter
                 }), vml("fill", {
-                    color: o.color,
+                    color: getColor(o.color, i),
                     opacity: o.opacity
                 }), vml("stroke", {
                     opacity: 0
