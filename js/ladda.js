@@ -286,8 +286,8 @@
 			length: length,
 			width: width,
 			zIndex: 'auto',
-			top: 'auto',
-			left: 'auto',
+			top: '50%',
+			left: '50%',
 			className: ''
 		} );
 
