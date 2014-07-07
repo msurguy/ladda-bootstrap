@@ -3,6 +3,7 @@
     "version": "0.8.0",
     "license": "MIT",
     "description": "Buttons with built-in loading indicators, effectively bridging the gap between action and feedback",
+    "main": "js/ladda.js",
     "homepage": "http://msurguy.github.io/ladda-bootstrap/",
     "bugs": "https://github.com/msurguy/ladda-bootstrap/issues",
     "repository": { 
