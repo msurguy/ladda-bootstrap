@@ -141,7 +141,7 @@
 				}
 				else {
 					if( !progressElement ) {
-						progressElement = document.createElement( 'div' );
+						progressElement = document.createElement( 'span' );
 						progressElement.className = 'ladda-progress';
 						button.appendChild( progressElement );
 					}
