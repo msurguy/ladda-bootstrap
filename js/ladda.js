@@ -1,15 +1,16 @@
 /*!
- * Ladda 0.8.0
+ * Ladda
  * http://lab.hakim.se/ladda
  * MIT licensed
  *
- * Copyright (C) 2013 Hakim El Hattab, http://hakim.se
+ * Copyright (C) 2014 Hakim El Hattab, http://hakim.se
  */
+/* jshint node:true, browser:true */
 (function( root, factory ) {
 
 	// CommonJS
 	if( typeof exports === 'object' )  {
-		module.exports = factory();
+		module.exports = factory(require('spin.js'));
 	}
 	// AMD module
 	else if( typeof define === 'function' && define.amd ) {
@@ -47,8 +48,8 @@
 			button.innerHTML = '<span class="ladda-label">'+ button.innerHTML +'</span>';
 		}
 
-		// Create the spinner
-		var spinner = createSpinner( button );
+		// The spinner component
+		var spinner;
 
 		// Wrapper element for the spinner
 		var spinnerWrapper = document.createElement( 'span' );
@@ -64,6 +65,9 @@
 			 * Enter the loading state.
 			 */
 			start: function() {
+
+				// Create the spinner if it doesn't already exist
+				if( !spinner ) spinner = createSpinner( button );
 
 				button.setAttribute( 'disabled', '' );
 				button.setAttribute( 'data-loading', '' );
@@ -100,7 +104,10 @@
 				// Kill the animation after a delay to make sure it
 				// runs for the duration of the button transition
 				clearTimeout( timer );
-				timer = setTimeout( function() { spinner.stop(); }, 1000 );
+
+				if( spinner ) {
+					timer = setTimeout( function() { spinner.stop(); }, 1000 );
+				}
 
 				return this; // chain
 
@@ -172,6 +179,27 @@
 
 				return button.hasAttribute( 'data-loading' );
 
+			},
+
+			remove: function() {
+
+				clearTimeout( timer );
+
+				button.removeAttribute( 'disabled', '' );
+				button.removeAttribute( 'data-loading', '' );
+
+				if( spinner ) {
+					spinner.stop();
+					spinner = null;
+				}
+
+				for( var i = 0, len = ALL_INSTANCES.length; i < len; i++ ) {
+					if( instance === ALL_INSTANCES[i] ) {
+						ALL_INSTANCES.splice( i, 1 );
+						break;
+					}
+				}
+
 			}
 
 		};
@@ -181,6 +209,52 @@
 		return instance;
 
 	}
+
+	/**
+	* Get the first ancestor node from an element, having a
+	* certain type.
+	*
+	* @param elem An HTML element
+	* @param type an HTML tag type (uppercased)
+	*
+	* @return An HTML element
+	*/
+	function getAncestorOfTagType( elem, type ) {
+
+		while ( elem.parentNode && elem.tagName !== type ) {
+			elem = elem.parentNode;
+		}
+
+		return ( type === elem.tagName ) ? elem : undefined;
+
+	}
+
+	/**
+	 * Returns a list of all inputs in the given form that
+	 * have their `required` attribute set.
+	 *
+	 * @param form The from HTML element to look in
+	 *
+	 * @return A list of elements
+	 */
+	function getRequiredFields( form ) {
+
+		var requirables = [ 'input', 'textarea' ];
+		var inputs = [];
+
+		for( var i = 0; i < requirables.length; i++ ) {
+			var candidates = form.getElementsByTagName( requirables[i] );
+			for( var j = 0; j < candidates.length; j++ ) {
+				if ( candidates[j].hasAttribute( 'required' ) ) {
+					inputs.push( candidates[j] );
+				}
+			}
+		}
+
+		return inputs;
+
+	}
+
 
 	/**
 	 * Binds the target buttons to automatically enter the
@@ -214,22 +288,40 @@
 					var instance = create( element );
 					var timeout = -1;
 
-					element.addEventListener( 'click', function() {
+					element.addEventListener( 'click', function( event ) {
 
-						// This is asynchronous to avoid an issue where setting
-						// the disabled attribute on the button prevents forms
-						// from submitting
-						instance.startAfter( 1 );
+						// If the button belongs to a form, make sure all the
+						// fields in that form are filled out
+						var valid = true;
+						var form = getAncestorOfTagType( element, 'FORM' );
 
-						// Set a loading timeout if one is specified
-						if( typeof options.timeout === 'number' ) {
-							clearTimeout( timeout );
-							timeout = setTimeout( instance.stop, options.timeout );
+						if( typeof form !== 'undefined' ) {
+							var requireds = getRequiredFields( form );
+							for( var i = 0; i < requireds.length; i++ ) {
+								// Alternatively to this trim() check,
+								// we could have use .checkValidity() or .validity.valid
+								if( requireds[i].value.replace( /^\s+|\s+$/g, '' ) === '' ) {
+									valid = false;
+								}
+							}
 						}
 
-						// Invoke callbacks
-						if( typeof options.callback === 'function' ) {
-							options.callback.apply( null, [ instance ] );
+						if( valid ) {
+							// This is asynchronous to avoid an issue where setting
+							// the disabled attribute on the button prevents forms
+							// from submitting
+							instance.startAfter( 1 );
+
+							// Set a loading timeout if one is specified
+							if( typeof options.timeout === 'number' ) {
+								clearTimeout( timeout );
+								timeout = setTimeout( instance.stop, options.timeout );
+							}
+
+							// Invoke callbacks
+							if( typeof options.callback === 'function' ) {
+								options.callback.apply( null, [ instance ] );
+							}
 						}
 
 					}, false );
@@ -254,7 +346,13 @@
 	function createSpinner( button ) {
 
 		var height = button.offsetHeight,
-				spinnerColor;
+			spinnerColor;
+
+		if( height === 0 ) {
+			// We may have an element that is not visible so
+			// we attempt to get the height in a different way
+			height = parseFloat( window.getComputedStyle( button ).height );
+		}
 
 		// If the button is tall we can afford some padding
 		if( height > 32 ) {
@@ -267,7 +365,7 @@
 		}
 
 		// Allow buttons to specify the color of the spinner element
-		if (button.hasAttribute('data-spinner-color' ) ) {
+		if( button.hasAttribute( 'data-spinner-color' ) ) {
 			spinnerColor = button.getAttribute( 'data-spinner-color' );
 		}
 
