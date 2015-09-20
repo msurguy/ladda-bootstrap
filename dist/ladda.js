@@ -48,6 +48,9 @@
                 return this;
             },
             remove: function() {
+                if (this.isLoading()) {
+                    this.stop();
+                }
                 spinnerWrapper.parentNode.removeChild(spinnerWrapper);
                 return this;
             },
