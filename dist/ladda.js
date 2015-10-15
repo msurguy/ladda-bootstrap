@@ -47,6 +47,13 @@
                 }, 1e3);
                 return this;
             },
+            remove: function() {
+                if (this.isLoading()) {
+                    this.stop();
+                }
+                spinnerWrapper.parentNode.removeChild(spinnerWrapper);
+                return this;
+            },
             toggle: function() {
                 if (this.isLoading()) {
                     this.stop();
