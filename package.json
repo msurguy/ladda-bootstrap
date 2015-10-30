@@ -1,0 +1,11 @@
+{
+    "name": "ladda-bootstrap",
+    "version": "0.1.0",
+    "description": "Buttons with built-in loading indicators, effectively bridging the gap between action and feedback.",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:msurguy/ladda-bootstrap.git"
+    },
+    "author": "",
+    "license": "ISC"
+}
