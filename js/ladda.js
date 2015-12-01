@@ -76,7 +76,7 @@
 				spinner.spin( spinnerWrapper );
 
 				this.setProgress( 0 );
-
+                                button.blur();
 				return this; // chain
 
 			},
