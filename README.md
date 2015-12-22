@@ -39,6 +39,8 @@ If you want JavaScript control over your buttons you can use the following appro
 
 ```javascript
 // Create a new instance of ladda for the specified button
+// Please note that this must be done after the button has been
+// added to the DOM.
 var l = Ladda.create( document.querySelector( '.my-button' ) );
 
 // Start loading
