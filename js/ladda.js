@@ -37,6 +37,9 @@
 	 */
 	function create( button ) {
 
+		// Declaring default and optional stateful loading text.
+		var defaultBtnText, statefulText;
+
 		if( typeof button === 'undefined' ) {
 			console.warn( "Ladda button target must be defined." );
 			return;
@@ -45,7 +48,24 @@
 		// The text contents must be wrapped in a ladda-label
 		// element, create one if it doesn't already exist
 		if( !button.querySelector( '.ladda-label' ) ) {
+
+			// Storing original button text.
+			defaultBtnText = button.innerHTML;
+
+			// Creating inner span element.
 			button.innerHTML = '<span class="ladda-label">'+ button.innerHTML +'</span>';
+		}
+		else
+		{
+			// Storing default button text.
+			defaultBtnText = button.querySelector( '.ladda-label' ).innerHTML;
+		}
+
+		// Checking if button has a stateful loading text attribute.
+		if( button.hasAttribute('data-loading-text')  )
+		{
+			// Storing stateful loading text.
+			statefulText = button.getAttribute('data-loading-text');
 		}
 
 		// The spinner component
@@ -71,6 +91,13 @@
 
 				button.setAttribute( 'disabled', '' );
 				button.setAttribute( 'data-loading', '' );
+
+				// Checking if the button has a stateful loading text.
+				if( statefulText )
+				{
+					// Switching to the stateful loading button text.
+					button.querySelector( '.ladda-label' ).innerHTML = statefulText;
+				}
 
 				clearTimeout( timer );
 				spinner.spin( spinnerWrapper );
@@ -107,6 +134,13 @@
 
 				if( spinner ) {
 					timer = setTimeout( function() { spinner.stop(); }, 1000 );
+				}
+
+				// Checking if the button has a stateful loading text.
+				if( statefulText )
+				{
+					// Reverting to the default button text.
+					button.querySelector( '.ladda-label' ).innerHTML = defaultBtnText;
 				}
 
 				return this; // chain
@@ -187,6 +221,9 @@
 
 				button.removeAttribute( 'disabled', '' );
 				button.removeAttribute( 'data-loading', '' );
+
+				// Removing stateful loading text attribute, if exists.
+				if( statefulText ) button.removeAttribute( 'data-loading-text', '' );
 
 				if( spinner ) {
 					spinner.stop();
