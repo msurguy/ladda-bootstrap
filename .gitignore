@@ -1,2 +1,12 @@
+# Build system
 .sass-cache/
+
+# Nodejs
 node_modules/
+
+# Editors
+.idea/
+.vscode/
+
+# MacOS
+.DS_Store
