@@ -1,3 +1,7 @@
+# Project INACTIVE
+
+There is now no need to maintain this project as Ladda operates well on its own with Bootstrap and demo pages could be found in the original Ladda repository: https://github.com/hakimel/Ladda/tree/master/test 
+
 # Ladda for Bootstrap 3
 
 Buttons with built-in loading indicators, effectively bridging the gap between action and feedback. 
