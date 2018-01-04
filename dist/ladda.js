@@ -147,8 +147,6 @@
             length: length,
             width: width,
             zIndex: "auto",
-            top: "50%",
-            left: "50%",
             className: ""
         });
     }
